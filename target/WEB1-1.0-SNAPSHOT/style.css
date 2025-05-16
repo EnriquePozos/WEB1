@@ -1,0 +1,631 @@
+/* Variables de colores - Paleta Pastel */
+:root {
+  --color-primary: #2E5984;       /* Azul marino medio para elementos principales */
+  --color-primary-dark: #1D3B57;  /* Versión más oscura para hover */
+  --color-secondary: rgb(202, 237, 255); /* Azul cielo pastel actual (navbar) */
+  --color-secondary-dark: #92C7E8; /* Versión más oscura del azul cielo */
+  --color-accent: #2D6E87;        /* Azul petróleo para acentos */
+  --color-text: #344966;          /* Azul índigo para textos importantes */
+  --color-text-light: #5A7D9A;    /* Azul grisáceo para textos secundarios */
+  --color-background: #F5F9FF;    /* Fondo muy claro con un toque azulado */
+  --color-white: #FFFFFF;         /* Blanco puro */
+  --color-off-white: #f8f8f8;     /* Blanco apagado para fondos secundarios */
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra más suave */
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  /* Añadimos padding-top para compensar la navbar fija */
+  padding-top: 70px;
+}
+
+/* Header y navegación */
+.navbar {
+  padding: 15px 0;
+  background-color: var(--color-secondary);
+  box-shadow: var(--shadow);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.navbar-brand img {
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.1);
+}
+
+.nav-link {
+  font-weight: 500;
+  color: var(--color-text) !important;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--color-primary) !important;
+}
+
+.btn-outline-success {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.btn-outline-success:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+/* Banner */
+.banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 30px;
+
+  max-height: 500px;
+}
+
+.banner img {
+  width: 100%;
+  /* Usamos object-fit: cover para que la imagen se ajuste correctamente */
+  object-fit: cover;
+  /* Altura para desktop */
+  height: 400px;
+  display: block;
+}
+
+/* Sección de categorías */
+.category-section {
+  padding: 40px 0;
+}
+
+.category-section h2 {
+  color: var(--color-text);
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.category-item {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.category-item:hover {
+  transform: translateY(-5px);
+}
+
+.category-item img {
+  border: 3px solid var(--color-white);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.category-item:hover img {
+  border-color: var(--color-primary);
+}
+
+.category-item p {
+  font-weight: 500;
+  margin-top: 10px;
+  color: var(--color-text);
+}
+
+/* Sección de recetas valoradas */
+.recetas-valoradas {
+  padding: 60px 0;
+  background-color: var(--color-background);
+}
+
+.seccion-titulo {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--color-text);
+}
+
+.seccion-descripcion {
+  text-align: center;
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+}
+
+.receta {
+  position: relative;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.receta:hover {
+  transform: translateY(-10px);
+}
+
+.receta img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(162, 224, 255, 0.8);
+  color: #1D3B57;
+  padding: 15px;
+  transition: height 0.3s ease;
+  height: auto;
+}
+
+.receta:hover .overlay {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.titulo-receta {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.categoria, .autor {
+  margin: 3px 0;
+  font-size: 0.9rem;
+}
+
+.receta-btn {
+  display: none;
+  margin-top: 15px;
+  background-color: var(--color-primary);
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.receta:hover .receta-btn {
+  display: inline-block;
+}
+
+.receta-btn:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-primary-dark);
+}
+
+/* Estilos para el footer con texto centrado */
+footer {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 40px;
+}
+
+footer .footer-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+footer p {
+  margin-bottom: 5px;
+}
+
+/* Copyright en la parte inferior */
+.copyright {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .category-item {
+    margin-bottom: 15px;
+  }
+  
+  .navbar-collapse {
+    background-color: var(--color-secondary);
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+  }
+  
+  /* Ajustamos la altura del banner para móviles */
+  .banner img {
+    height: 250px;
+  }
+  
+  /* Reducimos el padding-top del body para móviles */
+  body {
+    padding-top: 60px;
+  }
+}
+
+/* Para pantallas muy grandes, controlamos la altura máxima */
+@media (min-width: 1400px) {
+  .banner img {
+    height: 500px;
+  }
+}
+
+/* Estilos para la página de recetas (dashboard) */
+
+/* Título principal */
+.titulo-dashboard h1 {
+  color: #1D3B57 !important;
+  margin-bottom: 10px;
+  position: relative;
+  display: inline-block;
+}
+
+.titulo-dashboard h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--color-primary);
+}
+
+/* Filtros */
+.filtros {
+  background-color: var(--color-off-white);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.filtros h2 {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.filtros .input-group-text {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.filtros .btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.filtros .btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Cards de recetas */
+.receta {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.receta:hover {
+  transform: translateY(-10px);
+}
+
+.receta img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.receta .card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-text);
+}
+
+.receta .btn {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.receta .btn:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+/* Paginación */
+.pagination .page-link {
+  color: var(--color-primary);
+  border-color: var(--color-secondary-dark);
+  transition: all 0.3s ease;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.pagination .page-link:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .receta img {
+    height: 180px;
+  }
+  
+  .titulo-dashboard h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Estilos para la página de perfil */
+
+/* Tarjeta de perfil */
+.perfil-card {
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  border: none;
+}
+
+/* Avatar de usuario */
+.avatar-container {
+  position: relative;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+}
+
+.avatar-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 3px solid var(--color-secondary);
+}
+
+/* Botón de editar perfil */
+.profile-button {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.profile-button:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Navegación por tabs */
+.nav-tabs .nav-link {
+  color: var(--color-text);
+  border: none;
+  padding: 10px 20px;
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+  color: var(--color-primary);
+  border-bottom: 3px solid var(--color-secondary);
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--color-primary);
+  background-color: transparent;
+  border-bottom: 3px solid var(--color-primary);
+}
+
+/* Formulario de nueva receta */
+.nueva-receta-form label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.nueva-receta-form .input-group-text {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+/* Botones para ingredientes e instrucciones */
+#agregar-ingrediente, #agregar-paso {
+  transition: all 0.3s ease;
+}
+
+#agregar-ingrediente:hover, #agregar-paso:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+
+/* Adaptaciones responsivas */
+@media (max-width: 767px) {
+  .avatar-container, .avatar-img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .nav-tabs .nav-link {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Estilos para la página de login/registro */
+
+/* Tarjeta de acceso */
+.acceso-card {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+/* Navegación por tabs */
+.acceso-card .nav-tabs {
+  border-bottom: 1px solid var(--color-secondary);
+}
+
+.acceso-card .nav-tabs .nav-link {
+  color: var(--color-text);
+  border: none;
+  padding: 15px 25px;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.acceso-card .nav-tabs .nav-link:hover {
+  color: var(--color-primary);
+  border-bottom: 3px solid var(--color-secondary);
+}
+
+.acceso-card .nav-tabs .nav-link.active {
+  color: var(--color-primary);
+  background-color: transparent;
+  border-bottom: 3px solid var(--color-primary);
+}
+
+/* Formularios */
+.login-form, .register-form {
+  padding: 10px;
+}
+
+.login-form label, .register-form label {
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 5px;
+}
+
+.login-form .input-group-text, .register-form .input-group-text {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+/* Botones de login y registro */
+.login-btn, .register-btn {
+  padding: 10px 0;
+  font-weight: 600;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover, .register-btn:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Enlaces */
+.acceso-card a {
+  color: var(--color-primary);
+  transition: color 0.3s ease;
+}
+
+.acceso-card a:hover {
+  color: var(--color-primary-dark);
+}
+
+.acceso-card .btn-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0;
+}
+
+.acceso-card .btn-link:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+/* Checkbox */
+.form-check-input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* Mensajes de ayuda */
+.form-text {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+/* Efectos de hover en inputs */
+.form-control:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 0.25rem rgba(46, 89, 132, 0.25);
+}
+
+/* Adaptaciones responsivas */
+@media (max-width: 767px) {
+  .acceso-card .nav-tabs .nav-link {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .login-form, .register-form {
+    padding: 5px;
+  }
+}
+
+.texto-azul-oscuro {
+  color: #1D3B57 !important;
+}
+
+.azul-clarito {
+  color: #92C7E8 !important;
+}
+
+/* Botón de publicar receta */
+.publicar-btn {
+  background-color: #2E5984 !important;
+  border-color:  #2E5984 !important;
+}
+
+.icons-edittrash {
+  color:#f8f8f8 !important;
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+  display: block !important;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+}
