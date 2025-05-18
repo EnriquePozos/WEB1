@@ -97,4 +97,32 @@ public class UsuarioDAO {
         }
         return usuario;
     }
+    
+    //Modificar usuario (foto de perfil, nombre, usuario, apellidos, , fecha nacimiento,)
+    public void updateUsuario(Usuario usuario){
+    PreparedStatement ps=null;
+        
+        try{
+        ps = conn.prepareStatement("UPDATE usuario SET Usuario = ?,Contrasenia = ?,Nombre = ?,Apellido_P = ?,Apellido_M = ?,Foto_Perfil = ? where id_Usuario= ?");
+        ps.setString(1, usuario.getUsuario());
+        ps.setString(2, usuario.getContrasenia());
+        ps.setString(3, usuario.getNombre());
+        ps.setString(4, usuario.getApellido_P());
+        ps.setString(5, usuario.getApellido_M());
+        ps.setString(6, usuario.getFoto_Perfil());
+        ps.setInt(7, usuario.getId_Usuario());
+        
+        int update = ps.executeUpdate();
+        
+        if(update!=0){
+        //Mensaje Exitoso
+        }else{
+        
+        //Mensaje Error
+        }
+        }catch(SQLException ex){
+        
+        }
+    }
+    
 }

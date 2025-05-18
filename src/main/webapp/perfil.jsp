@@ -104,9 +104,11 @@
                 <h2 class="card-title fw-bold texto-azul-oscuro"><%=usuario.getNombre()%></h2>
               <p class="text-muted mb-1"><i class="bi bi-envelope me-2"></i><%=usuario.getCorreo()%></p>
               <p class="text-muted mb-3"><i class="bi bi-calendar3 me-2"></i>Se unió: <%=Fecha%></p>
-              <button class="btn btn-primary profile-button">
-                <i class="bi bi-pencil-square me-2"></i>Editar perfil
-              </button>
+              <a id="EditarPerfil" href="modificarUsuario.jsp"> 
+                <button class="btn btn-primary profile-button">
+                    <i class="bi bi-pencil-square me-2"></i>Editar perfil
+                </button>
+               </a>
             </div>
           </div>
         </div>
