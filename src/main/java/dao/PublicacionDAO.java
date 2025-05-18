@@ -28,7 +28,7 @@ public class PublicacionDAO {
         this.conn = conn;
     }
     //Agregar Receta
-    public boolean insertReceta(Usuario usuario, Publicacion publicacion, Categoria categoria) {
+    public boolean insertReceta(Publicacion publicacion) {
 
         PreparedStatement ps = null;
 
@@ -41,8 +41,8 @@ public class PublicacionDAO {
             ps.setString(1, publicacion.getTitulo()); //El num en query
             ps.setString(2, publicacion.getDescripcion());
             ps.setString(3, publicacion.getFoto_Receta());
-            ps.setInt(4, categoria.getId_Categoria());
-            ps.setInt(5, usuario.getId_Usuario());
+            ps.setInt(4, publicacion.getId_Categoria());
+            ps.setInt(5, publicacion.getId_Autor());
 
 
             int insert = ps.executeUpdate();

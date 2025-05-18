@@ -80,6 +80,7 @@ public class UsuarioDAO {
        while(rs.next()){
        usuario = new Usuario();
        //Crea un obj con la info que me trajo el query
+       usuario.setId_Usuario(rs.getInt("id_Usuario"));
        usuario.setNombre(rs.getString("Nombre"));
        usuario.setContrasenia(rs.getString("Contrasenia"));
        usuario.setUsuario(rs.getString("Usuario"));

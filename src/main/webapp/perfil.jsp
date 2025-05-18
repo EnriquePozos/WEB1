@@ -187,13 +187,13 @@
             </div>
             
             <!-- Tab: Nueva receta -->
-            <div class="tab-pane fade" id="nueva-receta" role="tabpanel" aria-labelledby="nueva-receta-tab">
+            <div class="tab-pane fade" id="nueva-receta" role="tabpanel" aria-labelledby="nueva-receta-tab" >
               <div class="card">
                 <div class="card-body">
                   <h2 class="card-title fw-bold mb-4 texto-azul-oscuro">Publicar nueva receta</h2>
-                  <form class="nueva-receta-form">
+                  <form class="nueva-receta-form" action="AgregarReceta" method="post"  enctype="multipart/form-data">
                     <div class="mb-3">
-                      <label for="titulo" class="form-label">Tí­tulo de la receta</label>
+                      <label for="titulo" class="form-label" id ="titulo-receta" name="Titulo-Receta">Tí­tulo de la receta</label>
                       <input type="text" class="form-control" id="titulo" name="titulo" required>
                     </div>
                     
@@ -201,33 +201,26 @@
                       <div class="col-md-6">
                           
                           <!------------------------------VERIFICAR EN LA BD Y TRAERLOS O SETTEARLOS DESDE AQUÍ ----------------------------------->
-                        <label for="categoria" class="form-label">Categorí­a</label>
-                        <select class="form-select" id="categoria" name="categoria" required>
+                          <label for="categoria" class="form-label">Categorí­a</label>
+                        <select class="form-select" id="categoria" name="categoria" id="categoria" required>
                           <option value="" selected disabled>Selecciona una categorí­a</option>
-                          <option value="desayuno">Desayunos</option>
-                          <option value="platos-fuertes">Platos fuertes</option>
-                          <option value="guarniciones">Guarniciones</option>
-                          <option value="postres">Postres</option>
-                          <option value="bebidas">Bebidas</option>
-                          <option value="vegano">Vegano</option>
-                          <option value="snacks">Snacks y aperitivos</option>
-                          <option value="rapido-facil">Rápido y fácil</option>
-                          <option value="sopas-cremas">Sopas y cremas</option>
-                          <option value="especiales">Ocasiones especiales</option>
+                          <option value="Desayunos">Desayunos</option>
+                          <option value="Platos fuertes">Platos fuertes</option>
+                          <option value="Guarniciones">Guarniciones</option>
+                          <option value="Postres">Postres</option>
+                          <option value="Bebidas">Bebidas</option>
+                          <option value="Vegano">Vegano</option>
+                          <option value="Snacks">Snacks</option>
+                          <option value="Rápido y fácil">Rápido y fácil</option>
+                          <option value="Otros">Otros</option>
                         </select>
                       </div>
                       
-                      <div class="col-md-6">
-                        <label for="tiempo" class="form-label">Tiempo de preparación</label>
-                        <div class="input-group">
-                          <input type="number" class="form-control" id="tiempo" name="tiempo" min="1" required>
-                          <span class="input-group-text">minutos</span>
-                        </div>
-                      </div>
+
                     </div>
                     
                     <div class="mb-3">
-                      <label for="descripcion" class="form-label">Descripción</label>
+                        <label for="descripcion" class="form-label" id="descripcion" name="descripcion">Descripción</label>
                       <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
                     </div>
                     
@@ -240,7 +233,7 @@
                     
                     <div class="d-flex justify-content-end">
                       <button type="button" class="btn btn-outline-secondary me-2" data-bs-toggle="tab" data-bs-target="#mis-recetas">Cancelar</button>
-                      <button type="submit" class="btn btn-primary publicar-btn">
+                      <button type="submit" class="btn btn-primary publicar-btn" id="publicar-receta" name="publicar-receta">
                         <i class="bi bi-upload me-1"></i>Publicar receta
                       </button>
                     </div>
