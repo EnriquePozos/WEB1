@@ -176,11 +176,13 @@
                 </div>
                 
                 <!-- Mensaje para agregar mÃ¡s recetas -->
+                <!-- MAYBE SE QUITA PQ NO JALA EL BOOTSTRAP XD
                 <div class="col-12 text-center mt-3">
                   <button class="btn btn-outline-primary" data-bs-toggle="tab" data-bs-target="#nueva-receta">
                     <i class="bi bi-plus-circle me-2"></i>Crear nueva receta
                   </button>
                 </div>
+                 -->
               </div>
             </div>
             
@@ -197,6 +199,8 @@
                     
                     <div class="row mb-3">
                       <div class="col-md-6">
+                          
+                          <!------------------------------VERIFICAR EN LA BD Y TRAERLOS O SETTEARLOS DESDE AQUÍ ----------------------------------->
                         <label for="categoria" class="form-label">Categorí­a</label>
                         <select class="form-select" id="categoria" name="categoria" required>
                           <option value="" selected disabled>Selecciona una categorí­a</option>
@@ -227,36 +231,6 @@
                       <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
                     </div>
                     
-                    <div class="mb-3">
-                      <label class="form-label">Ingredientes</label>
-                      <div id="ingredientes-container">
-                        <div class="input-group mb-2">
-                          <input type="text" class="form-control" placeholder="Ej: 2 cucharadas de aceite">
-                          <button type="button" class="btn btn-outline-danger">
-                            <i class="bi bi-x"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <button type="button" class="btn btn-sm btn-outline-secondary" id="agregar-ingrediente">
-                        <i class="bi bi-plus-circle me-1"></i>Agregar ingrediente
-                      </button>
-                    </div>
-                    
-                    <div class="mb-3">
-                      <label class="form-label">Instrucciones</label>
-                      <div id="instrucciones-container">
-                        <div class="input-group mb-2">
-                          <span class="input-group-text">1.</span>
-                          <input type="text" class="form-control" placeholder="Ej: Precalentar el horno a 180Â°C">
-                          <button type="button" class="btn btn-outline-danger">
-                            <i class="bi bi-x"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <button type="button" class="btn btn-sm btn-outline-secondary" id="agregar-paso">
-                        <i class="bi bi-plus-circle me-1"></i>Agregar paso
-                      </button>
-                    </div>
                     
                     <div class="mb-4">
                       <label for="imagen" class="form-label">Imagen de la receta</label>

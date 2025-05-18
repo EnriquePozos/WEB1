@@ -16,7 +16,8 @@ public class Publicacion {
  boolean Activa;
  int id_Categoria; 
  int id_Autor;
-    
+ String Foto_Perfil;
+ String Foto_Receta;   
     
     public Publicacion(){
          
@@ -77,6 +78,24 @@ public class Publicacion {
     public void setId_Autor(int id_Autor) {
         this.id_Autor = id_Autor;
     }
+
+    public String getFoto_Perfil() {
+        return Foto_Perfil;
+    }
+
+    public void setFoto_Perfil(String Foto_Perfil) {
+        this.Foto_Perfil = Foto_Perfil;
+    }
+
+    public String getFoto_Receta() {
+        return Foto_Receta;
+    }
+
+    public void setFoto_Receta(String Foto_Receta) {
+        this.Foto_Receta = Foto_Receta;
+    }
     
+    
+
     
 }
