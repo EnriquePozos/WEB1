@@ -29,6 +29,7 @@ public class PublicacionDAO {
     public PublicacionDAO(Connection conn) {
         this.conn = conn;
     }
+
     //Agregar Receta
     public boolean insertReceta(Publicacion publicacion) {
 
@@ -45,7 +46,6 @@ public class PublicacionDAO {
             ps.setString(3, publicacion.getFoto_Receta());
             ps.setInt(4, publicacion.getId_Categoria());
             ps.setInt(5, publicacion.getId_Autor());
-
 
             int insert = ps.executeUpdate();
 
@@ -65,38 +65,98 @@ public class PublicacionDAO {
         }
 
     }
-    
-    public List<Publicacion> getPublicacionesDeUsuario(int idAutor){
-            List<Publicacion> listaPublicaciones = new ArrayList<>();
-    
-    PreparedStatement ps=null;
-      
-        try{
-             ps = conn.prepareStatement("SELECT * FROM PUBLICACION WHERE id_Autor = ? and Activa = TRUE");
-       
-             ps.setInt(1,idAutor);
-        
-        ResultSet rs = ps.executeQuery();
-        
-       while(rs.next()){
-       Publicacion publicacion = new Publicacion();
-       
-       publicacion.setTitulo(rs.getString("Titulo"));
-       publicacion.setDescripcion(rs.getString("Descripcion"));
-       publicacion.setFecha_Creacion(rs.getTimestamp("Fecha_Creacion"));
-       publicacion.setFoto_Receta(rs.getString("Foto_Receta"));
-       
-       
-       listaPublicaciones.add(publicacion);
-       }
-        }catch(SQLException ex){
-        
+
+    public List<Publicacion> getPublicacionesDeUsuario(int idAutor) {
+        List<Publicacion> listaPublicaciones = new ArrayList<>();
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement("SELECT * FROM PUBLICACION WHERE id_Autor = ? and Activa = TRUE");
+
+            ps.setInt(1, idAutor);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Publicacion publicacion = new Publicacion();
+
+                publicacion.setId_Publicacion(rs.getInt("id_Publicacion"));
+                publicacion.setTitulo(rs.getString("Titulo"));
+                publicacion.setDescripcion(rs.getString("Descripcion"));
+                publicacion.setFecha_Creacion(rs.getTimestamp("Fecha_Creacion"));
+                publicacion.setFoto_Receta(rs.getString("Foto_Receta"));
+
+                listaPublicaciones.add(publicacion);
+            }
+        } catch (SQLException ex) {
+
         }
-       
-    
-    return listaPublicaciones;
-        
+
+        return listaPublicaciones;
+
     }
+
+    //Solo puede modificar Titulo y Descripcion
+    public Publicacion getPublicacionAModificar(int idPublicacion, int idAutor) {
+        PreparedStatement ps = null;
+        Publicacion publicacion = null;
+        try {
+            ps = conn.prepareStatement("SELECT * FROM PUBLICACION where id_Publicacion=(?) AND id_Autor= (?)");
+            ps.setInt(1, idPublicacion);
+            ps.setInt(2, idAutor);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                publicacion = new Publicacion();
+                //Crea un obj con la info que me trajo el query
+                publicacion.setId_Publicacion(rs.getInt("id_Publicacion"));
+                publicacion.setTitulo(rs.getString("Titulo"));
+                publicacion.setDescripcion(rs.getString("Descripcion"));
+            }
+        } catch (SQLException ex) {
+
+        }
+        return publicacion;
+    }
+
+    public boolean updatePublicacion(Publicacion publicacion) { // Cambiado a boolean
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement("UPDATE PUBLICACION SET Titulo = ?, Descripcion = ? WHERE id_Publicacion = ?");
+
+            ps.setString(1, publicacion.getTitulo());
+            ps.setString(2, publicacion.getDescripcion());
+            ps.setInt(3, publicacion.getId_Publicacion());
+
+            int affectedRows = ps.executeUpdate(); // Cambiado 'update' a 'affectedRows' para claridad
+
+            if (affectedRows > 0) {
+                System.out.println("Publicación actualizada exitosamente.");
+                return true;
+            } else {
+                System.out.println("No se actualizó la publicación (ID no encontrado o datos idénticos).");
+                return false; // No se actualizó o los datos eran los mismos
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error SQL al actualizar publicación: " + ex.getMessage());
+            ex.printStackTrace();
+            return false;
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    
     
     
     

@@ -64,7 +64,7 @@
               <a class="nav-link active" href="dashboard.jsp">Recetas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="perfil.jsp">Mi perfil</a>
+              <a class="nav-link" href="ObtenerRecetasDeUnUsuario">Mi perfil</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="login.jsp">Iniciar sesión</a>

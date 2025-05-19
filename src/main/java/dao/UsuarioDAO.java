@@ -101,8 +101,6 @@ public class UsuarioDAO {
     //Modificar usuario (foto de perfil, nombre, usuario, apellidos, , fecha nacimiento,)
     public boolean updateUsuario(Usuario usuario) { // Cambiado a boolean
     PreparedStatement ps = null;
-    // El nombre de la tabla es 'USUARIO' y la columna ID es 'id_Usuario' según tu modelo Usuario.java
-    // La columna para el nombre de usuario es 'Usuario' según tu modelo.
     String sql = "UPDATE USUARIO SET Usuario = ?, Contrasenia = ?, Nombre = ?, Apellido_P = ?, Apellido_M = ? WHERE id_Usuario = ?";
 
     try {
