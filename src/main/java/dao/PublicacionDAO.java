@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Pozos
@@ -64,7 +66,37 @@ public class PublicacionDAO {
 
     }
     
+    public List<Publicacion> getPublicacionesDeUsuario(int idAutor){
+            List<Publicacion> listaPublicaciones = new ArrayList<>();
     
+    PreparedStatement ps=null;
+      
+        try{
+             ps = conn.prepareStatement("SELECT * FROM PUBLICACION WHERE id_Autor = ? and Activa = TRUE");
+       
+             ps.setInt(1,idAutor);
+        
+        ResultSet rs = ps.executeQuery();
+        
+       while(rs.next()){
+       Publicacion publicacion = new Publicacion();
+       
+       publicacion.setTitulo(rs.getString("Titulo"));
+       publicacion.setDescripcion(rs.getString("Descripcion"));
+       publicacion.setFecha_Creacion(rs.getTimestamp("Fecha_Creacion"));
+       publicacion.setFoto_Receta(rs.getString("Foto_Receta"));
+       
+       
+       listaPublicaciones.add(publicacion);
+       }
+        }catch(SQLException ex){
+        
+        }
+       
+    
+    return listaPublicaciones;
+        
+    }
     
     
     

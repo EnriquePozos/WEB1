@@ -2,11 +2,13 @@ com\mycompany\web1\servlets\AgregarReceta.class
 com\mycompany\web1\servlets\Login.class
 com\mycompany\web1\models\Usuario.class
 com\mycompany\web1\servlets\Registro.class
+com\mycompany\web1\servlets\ModificarUsuario.class
 com\mycompany\web1\resources\JakartaEE11Resource.class
 com\mycompany\web1\JakartaRestConfiguration.class
 conexion\conexion.class
 dao\CategoriaDAO.class
 com\mycompany\web1\models\Categoria.class
+com\mycompany\web1\servlets\ObtenerRecetasDeUnUsuario.class
 dao\PublicacionDAO.class
 dao\UsuarioDAO.class
 com\mycompany\web1\models\Publicacion.class

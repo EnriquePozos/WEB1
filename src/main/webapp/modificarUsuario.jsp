@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.mycompany.web1.models.Usuario"%>
+
+<!--
 <%
     // Obtener el objeto Usuario del request (establecido por ModificarUsuarioServlet en doGet)
     Usuario usuarioAModificar = (Usuario) request.getAttribute("usuarioAModificar");
@@ -46,6 +48,8 @@
     }
 
 %>
+
+-->
 <!DOCTYPE html>
 <html lang="es"> <%-- Buena práctica añadir el idioma --%>
 <head>
@@ -76,14 +80,14 @@
         <nav class="navbar navbar-expand-lg navbar-light sticky-top">
           <div class="container navbar-container">
             <div class="navbar-left">
-              <a class="navbar-brand" href="<%= contextPath %>/index.jsp"> <%-- Enlace a tu index --%>
-                <img src="<%= contextPath %>/imagenes/Logo.png" width="50" alt="Logo El sazón de Toto">
+              <a class="navbar-brand" href="/index.jsp"> <%-- Enlace a tu index --%>
+                <img src="/imagenes/Logo.png" width="50" alt="Logo El sazón de Toto">
                 <span>El sazón de Toto</span>
               </a>
             </div>
             
             <div class="navbar-center d-none d-lg-flex">
-              <form class="d-flex" action="<%= contextPath %>/BuscarServlet" method="GET"> <%-- Asumiendo un servlet para búsqueda --%>
+              <form class="d-flex" action="" method="GET"> <%-- Asumiendo un servlet para búsqueda --%>
                 <input class="form-control me-2" type="search" name="query" placeholder="Buscar recetas..." aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">
                   <i class="bi bi-search"></i>
@@ -99,30 +103,30 @@
             <div class="collapse navbar-collapse navbar-right" id="navbar-toggler">
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="<%= contextPath %>/index.jsp">Inicio</a>
+                  <a class="nav-link" href="/index.jsp">Inicio</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="<%= contextPath %>/dashboard.jsp">Recetas</a> <%-- O tu página principal de recetas --%>
+                  <a class="nav-link" href="/dashboard.jsp">Recetas</a> <%-- O tu página principal de recetas --%>
                 </li>
                 <% if (usuarioEnSesion != null) { %>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<%= contextPath %>/perfil.jsp">Mi perfil</a>
+                        <a class="nav-link active" aria-current="page" href="/perfil.jsp">Mi perfil</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="<%= contextPath %>/LogoutServlet">Cerrar Sesión</a> <%-- Asumiendo un LogoutServlet --%>
+                        <a class="nav-link" href="/LogoutServlet">Cerrar Sesión</a> <%-- Asumiendo un LogoutServlet --%>
                     </li>
                 <% } else { %>
                     <li class="nav-item">
-                        <a class="nav-link" href="<%= contextPath %>/login.jsp">Iniciar sesión</a>
+                        <a class="nav-link" href="/login.jsp">Iniciar sesión</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="<%= contextPath %>/registro.jsp">Registrarse</a>
+                        <a class="nav-link" href="/registro.jsp">Registrarse</a>
                     </li>
                 <% } %>
               </ul>
               
               <div class="mt-3 d-lg-none w-100">
-                <form class="d-flex" action="<%= contextPath %>/BuscarServlet" method="GET"> <%-- Asumiendo un servlet para búsqueda --%>
+                <form class="d-flex" action="" method="GET"> <%-- Asumiendo un servlet para búsqueda --%>
                   <input class="form-control me-2" type="search" name="query" placeholder="Buscar recetas..." aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">
                     <i class="bi bi-search"></i>
@@ -166,51 +170,42 @@
                         <form action="ModificarUsuario" method="POST" enctype="multipart/form-data" id="formModificarUsuario">
                             
                             <div class="text-center mb-4">
-                                <img id="avatarPreview" src="<%= fotoPerfil %>" alt="Foto de Perfil" class="avatar-preview">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="foto_perfil" class="form-label">Cambiar Foto de Perfil:</label>
-                                <input type="file" class="form-control" id="foto_perfil" name="foto_perfil" accept="image/*" onchange="previewImage(event)">
+                                <img id="avatarPreview" src="" alt="Foto de Perfil" class="avatar-preview">
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="nombre" class="form-label">Nombre(s):<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" value="<%= nombre %>" required>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" value="<%= usuarioEnSesion.getNombre()%>" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="nombre_usuario_form" class="form-label">Nombre de Usuario:<span class="text-danger">*</span></label>
                                     <%-- Renombrado 'name' para evitar colisión con variable 'nombreUsuario' en scriptlets --%>
-                                    <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="<%= nombreUsuario %>" required minlength="3">
+                                    <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="<%= usuarioEnSesion.getUsuario() %>" required minlength="3">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="apellido_paterno" class="form-label">Apellido Paterno:<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="apellido_paterno" name="apellido_paterno" value="<%= apellidoP %>" required>
+                                    <input type="text" class="form-control" id="apellido_paterno" name="apellido_paterno" value="<%= usuarioEnSesion.getApellido_P() %>" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="apellido_materno" class="form-label">Apellido Materno:</label>
-                                    <input type="text" class="form-control" id="apellido_materno" name="apellido_materno" value="<%= apellidoM %>">
+                                    <input type="text" class="form-control" id="apellido_materno" name="apellido_materno" value="<%= usuarioEnSesion.getApellido_M() %>">
                                 </div>
                             </div>
                             
                             <div class="mb-3">
                                 <label for="email" class="form-label">Contraseña<span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="contraseña" name="contraseña" value="<%= correo %>" required>
+                                <input type="password" class="form-control" id="contraseña" name="contraseña" value="<%= usuarioEnSesion.getContrasenia()%>" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento:</label>
-                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                            </div>
-                            
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                                 <a href="${pageContext.request.contextPath}/perfil.jsp" class="btn btn-secondary me-md-2">Cancelar</a>
                                 <button type="submit" class="btn profile-button">Guardar Cambios</button>
                             </div>
+                                
                         </form>
                     </div>
                 </div>

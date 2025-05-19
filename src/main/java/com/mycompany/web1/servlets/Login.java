@@ -96,7 +96,8 @@ public class Login extends HttpServlet {
                 //Se logueó
                 HttpSession session = request.getSession();
                 session.setAttribute("SesionActual", usuario);
-                response.sendRedirect("perfil.jsp");
+                response.sendRedirect("ObtenerRecetasDeUnUsuario");
+                //response.sendRedirect("perfil.jsp");
             }else{
                 //No se logueó
                 

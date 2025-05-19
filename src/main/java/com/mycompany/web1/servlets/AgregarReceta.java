@@ -145,7 +145,7 @@ public class AgregarReceta extends HttpServlet {
             
             if(pDAO.insertReceta(publicacion)){
                 // Se insertó en la bd
-                response.sendRedirect("perfil.jsp?recetaGuardada=1"); // Redirigir con un mensaje de éxito
+                response.sendRedirect("ObtenerRecetasDeUnUsuario"); // Redirigir con un mensaje de éxito
             } else {
                 // No se insertó
                 response.sendRedirect("login.jsp?errorReceta=1"); // Redirigir con un mensaje de error

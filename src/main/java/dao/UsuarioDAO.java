@@ -99,30 +99,96 @@ public class UsuarioDAO {
     }
     
     //Modificar usuario (foto de perfil, nombre, usuario, apellidos, , fecha nacimiento,)
-    public void updateUsuario(Usuario usuario){
-    PreparedStatement ps=null;
-        
-        try{
-        ps = conn.prepareStatement("UPDATE usuario SET Usuario = ?,Contrasenia = ?,Nombre = ?,Apellido_P = ?,Apellido_M = ?,Foto_Perfil = ? where id_Usuario= ?");
-        ps.setString(1, usuario.getUsuario());
-        ps.setString(2, usuario.getContrasenia());
-        ps.setString(3, usuario.getNombre());
+    public boolean updateUsuario(Usuario usuario) { // Cambiado a boolean
+    PreparedStatement ps = null;
+    // El nombre de la tabla es 'USUARIO' y la columna ID es 'id_Usuario' según tu modelo Usuario.java
+    // La columna para el nombre de usuario es 'Usuario' según tu modelo.
+    String sql = "UPDATE USUARIO SET Usuario = ?, Contrasenia = ?, Nombre = ?, Apellido_P = ?, Apellido_M = ? WHERE id_Usuario = ?";
+
+    try {
+        // Es una buena práctica verificar la conexión aquí si es una variable de instancia
+        if (conn == null || conn.isClosed()) {
+            System.err.println("Error: La conexión a la base de datos no está disponible o está cerrada.");
+            return false; // No se puede operar sin conexión
+        }
+
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, usuario.getUsuario());       // Nombre de usuario (username)
+        ps.setString(2, usuario.getContrasenia());   // Contraseña (¡Debería estar hasheada!)
+        ps.setString(3, usuario.getNombre());        // Nombre real de la persona
         ps.setString(4, usuario.getApellido_P());
         ps.setString(5, usuario.getApellido_M());
-        ps.setString(6, usuario.getFoto_Perfil());
-        ps.setInt(7, usuario.getId_Usuario());
-        
-        int update = ps.executeUpdate();
-        
-        if(update!=0){
-        //Mensaje Exitoso
-        }else{
-        
-        //Mensaje Error
+        ps.setInt(6, usuario.getId_Usuario());       // ID del usuario a actualizar
+
+        int affectedRows = ps.executeUpdate();
+
+        // executeUpdate() devuelve el número de filas afectadas.
+        // Si es mayor que 0, la actualización fue exitosa.
+        if (affectedRows > 0) {
+            // System.out.println("Usuario actualizado exitosamente. Filas afectadas: " + affectedRows); // Mensaje para depuración
+            return true; // Actualización exitosa
+        } else {
+            // System.out.println("No se actualizó el usuario. Puede que el id_Usuario no exista o los datos eran los mismos."); // Mensaje para depuración
+            return false; // No se actualizó ninguna fila (o los datos eran idénticos)
         }
-        }catch(SQLException ex){
-        
+    } catch (SQLException ex) {
+        System.err.println("Error de SQL al actualizar usuario: " + ex.getMessage());
+        ex.printStackTrace(); // Imprimir el stack trace para obtener más detalles del error
+        return false; // Ocurrió un error durante la actualización
+    } finally {
+        // Siempre cerrar el PreparedStatement en el bloque finally
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
+        // La conexión (conn) generalmente no se cierra aquí si es manejada externamente (ej. por el servlet o un pool)
+    }
+}
+    
+    
+    public Usuario getUsuarioById(int idUsuario) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Usuario usuario = null;
+        String sql = "SELECT * FROM USUARIO WHERE id_Usuario = ?";
+
+        try {
+            if (this.conn == null || this.conn.isClosed()) {
+                System.err.println("DAO Error: La conexión a la BD no está disponible.");
+                return null;
+            }
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                usuario = new Usuario();
+                usuario.setId_Usuario(rs.getInt("id_Usuario"));
+                usuario.setUsuario(rs.getString("Usuario"));
+                usuario.setCorreo(rs.getString("Correo"));
+                usuario.setContrasenia(rs.getString("Contrasenia")); // Importante para mantenerla en sesión
+                usuario.setNombre(rs.getString("Nombre"));
+                usuario.setApellido_P(rs.getString("Apellido_P"));
+                usuario.setApellido_M(rs.getString("Apellido_M"));
+                usuario.setFoto_Perfil(rs.getString("Foto_Perfil"));
+
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error SQL al obtener usuario por ID: " + ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        return usuario;
     }
     
 }

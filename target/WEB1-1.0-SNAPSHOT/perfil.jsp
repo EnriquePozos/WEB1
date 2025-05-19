@@ -1,5 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.mycompany.web1.models.Usuario"%>
+<%@page import="com.mycompany.web1.models.Publicacion"%> <%-- Importar Publicacion --%>
+<%@page import="java.util.List"%>                     
+<%@page import="java.text.SimpleDateFormat"%>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -28,10 +31,12 @@
 
 <body>
     <%
+        String contextPath = request.getContextPath();
         Usuario NoIniciado = new Usuario();
         Usuario usuario = (Usuario) request.getSession().getAttribute("SesionActual")==null?NoIniciado:(Usuario)request.getSession().getAttribute("SesionActual");
         String Fecha = usuario.getFecha_Creacion()==null?"":usuario.getFecha_Creacion().toString();
         //Usuario usuario =(Usuario) request.getSession().getAttribute("SesionActual"); 
+        List<Publicacion> ListaPublicaciones = (List<Publicacion>) request.getAttribute("MisPublicaciones");
     
     %>
   <header>
@@ -70,7 +75,7 @@
               <a class="nav-link" href="dashboard.jsp">Recetas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="perfil.jsp">Mi perfil</a>
+              <a class="nav-link active" href="ObtenerRecetasDeUnUsuario">Mi perfil</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="login.jsp">Iniciar sesión</a>
@@ -133,58 +138,57 @@
             <div class="tab-pane fade show active" id="mis-recetas" role="tabpanel" aria-labelledby="mis-recetas-tab">
               <!-- Lista de recetas del usuario -->
               <div class="row">
-                <!-- Receta 1 -->
-                <div class="col-md-6 mb-4">
-                  <div class="card receta h-100">
-                    <img src="imagenes/tacospastor.jpg" class="card-img-top" alt="Tacos al pastor">
-                    <div class="card-body">
-                      <h3 class="card-title">Tacos al pastor</h3>
-                      <p class="card-text text-muted">Categorí­a: Platos fuertes</p>
-                      <div class="d-flex align-items-center mt-3">
-                        <small class="text-muted me-auto">Publicado el 15/01/2025</small>
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-pencil icons-edittrash"></i>
-                          </a>
-                          <a href="#" class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-trash icons-edittrash"></i>
-                          </a>
+                  
+                  
+                  <% if (ListaPublicaciones != null && !ListaPublicaciones.isEmpty()) { %>
+                    <% for (Publicacion pub : ListaPublicaciones) { %>
+                        <div class="col-md-6 mb-4">
+                          <div class="card receta h-100">
+                            <% if (pub.getFoto_Receta() != null && !pub.getFoto_Receta().isEmpty()) { %>
+                                <img src="<%= contextPath %>/<%= pub.getFoto_Receta() %>" class="card-img-top" alt="<%= pub.getTitulo() %>">
+                            <% } else { %>
+                                <img src="<%= contextPath %>/imagenes/placeholder_receta.png" class="card-img-top" alt="Imagen no disponible">
+                            <% } %>
+                            <div class="card-body d-flex flex-column">
+                              <h3 class="card-title"><%= pub.getTitulo() %></h3>
+                              <p class="card-text text-muted flex-grow-1">
+                                  <%= (pub.getDescripcion() != null && pub.getDescripcion().length() > 80) ? pub.getDescripcion().substring(0, 80) + "..." : pub.getDescripcion() %>
+                              </p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted">
+                                    <% if (pub.getFecha_Creacion() != null) { %>
+                                        Publicado: <%= new SimpleDateFormat("dd/MM/yy").format(pub.getFecha_Creacion()) %>
+                                    <% } else { %>
+                                        Fecha no disponible
+                                    <% } %>
+                                </small>
+                                <div class="btn-group">
+                                  <a href="<%= contextPath %>/VerPublicacionServlet?id=<%= pub.getId_Publicacion() %>" class="btn btn-sm btn-outline-primary" title="Ver receta"><i class="bi bi-eye"></i></a>
+                                  <a href="<%= contextPath %>/ModificarPublicacionServlet?id=<%= pub.getId_Publicacion() %>" class="btn btn-sm btn-outline-secondary" title="Editar receta"><i class="bi bi-pencil icons-edittrash"></i></a>
+                                  <form action="<%= contextPath %>/BorrarPublicacionServlet" method="POST" style="display: inline;" onsubmit="return confirm('¿Estás seguro de que quieres borrar esta publicación?');">
+                                      <input type="hidden" name="idPublicacion" value="<%= pub.getId_Publicacion() %>">
+                                      <input type="hidden" name="origen" value="perfil">
+                                      <button type="submit" class="btn btn-sm btn-outline-danger" title="Borrar receta"><i class="bi bi-trash icons-edittrash"></i></button>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Receta 2 -->
-                <div class="col-md-6 mb-4">
-                  <div class="card receta h-100">
-                    <img src="imagenes/ensalada.jpeg" class="card-img-top" alt="Ensalada mediterrÃ¡nea">
-                    <div class="card-body">
-                      <h3 class="card-title">Ensalada del bosque</h3>
-                      <p class="card-text text-muted">Categorí­a: Vegano</p>
-                      <div class="d-flex align-items-center mt-3">
-                        <small class="text-muted me-auto">Publicado el 10/02/2025</small>
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-pencil icons-edittrash"></i>
-                          </a>
-                          <a href="#" class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-trash icons-edittrash"></i>
-                          </a>
+                    <% } // cierre del for %>
+                <% } else { // ELSE para if (publicaciones != null && !publicaciones.isEmpty()) %>
+                    <div class="col-12">
+                        <div class="alert alert-info text-center">
+                            <p>Aún no has publicado ninguna receta. ¡Empieza a compartir tus creaciones!</p>
                         </div>
-                      </div>
                     </div>
-                  </div>
-                </div>
-                
-                <!-- Mensaje para agregar mÃ¡s recetas -->
-                <!-- MAYBE SE QUITA PQ NO JALA EL BOOTSTRAP XD
-                <div class="col-12 text-center mt-3">
-                  <button class="btn btn-outline-primary" data-bs-toggle="tab" data-bs-target="#nueva-receta">
-                    <i class="bi bi-plus-circle me-2"></i>Crear nueva receta
-                  </button>
-                </div>
-                 -->
+                <% }  %>
+                  
+                  
+                  
+                  
+                  
+
               </div>
             </div>
             
@@ -195,7 +199,7 @@
                   <h2 class="card-title fw-bold mb-4 texto-azul-oscuro">Publicar nueva receta</h2>
                   <form class="nueva-receta-form" action="AgregarReceta" method="post"  enctype="multipart/form-data">
                     <div class="mb-3">
-                      <label for="titulo" class="form-label" id ="titulo-receta" name="Titulo-Receta">Tí­tulo de la receta</label>
+                      <label for="titulo" class="form-label">Tí­tulo de la receta</label>
                       <input type="text" class="form-control" id="titulo" name="titulo" required>
                     </div>
                     
@@ -222,7 +226,7 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="descripcion" class="form-label" id="descripcion" name="descripcion">Descripción</label>
+                        <label for="descripcion" class="form-label">Descripción</label>
                       <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
                     </div>
                     
@@ -247,8 +251,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
     </section>
   </main>
   
