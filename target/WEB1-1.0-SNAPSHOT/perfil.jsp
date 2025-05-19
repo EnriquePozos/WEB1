@@ -165,7 +165,7 @@
                                                     <div class="btn-group">
                                                         <a href="<%= contextPath%>/VerPublicacionServlet?id=<%= pub.getId_Publicacion()%>" class="btn btn-sm btn-outline-primary" title="Ver receta"><i class="bi bi-eye"></i></a>
                                                         <a href="<%= contextPath%>/ObtenerDatosDePublicacion?id=<%= pub.getId_Publicacion()%>" class="btn btn-sm btn-outline-secondary" title="Editar receta"><i class="bi bi-pencil icons-edittrash"></i></a>
-                                                        <form action="<%= contextPath%>/BorrarPublicacionServlet" method="POST" style="display: inline;" onsubmit="return confirm('¿Estás seguro de que quieres borrar esta publicación?');">
+                                                        <form action="<%= contextPath%>/EliminarPublicacion" method="POST" style="display: inline;" onsubmit="return confirm('¿Estás seguro de que quieres borrar esta publicación?');">
                                                             <input type="hidden" name="idPublicacion" value="<%= pub.getId_Publicacion()%>">
                                                             <input type="hidden" name="origen" value="perfil">
                                                             <button type="submit" class="btn btn-sm btn-outline-danger" title="Borrar receta"><i class="bi bi-trash icons-edittrash"></i></button>

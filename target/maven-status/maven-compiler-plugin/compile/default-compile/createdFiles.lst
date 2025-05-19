@@ -6,6 +6,7 @@ com\mycompany\web1\servlets\ModificarUsuario.class
 com\mycompany\web1\resources\JakartaEE11Resource.class
 conexion\conexion.class
 dao\CategoriaDAO.class
+com\mycompany\web1\servlets\EliminarPublicacion.class
 com\mycompany\web1\models\Categoria.class
 com\mycompany\web1\servlets\ObtenerDatosDePublicacion.class
 com\mycompany\web1\servlets\ObtenerRecetasDeUnUsuario.class

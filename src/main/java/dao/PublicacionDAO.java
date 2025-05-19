@@ -156,8 +156,44 @@ public class PublicacionDAO {
         }
     }
 
+    //Eliminar publicación
+    public boolean deletePublicacion(int idPublicacion) { // Cambiado a boolean
+        PreparedStatement ps = null;
+
+        try {
+            // Tu conexión 'conn' debe estar inicializada y abierta antes de llamar a este método
+            ps = conn.prepareStatement("UPDATE PUBLICACION SET Activa = ? WHERE id_Publicacion = ?");
+            ps.setBoolean(1, false); // Establece Activa a false
+            ps.setInt(2, idPublicacion);
+
+            int affectedRows = ps.executeUpdate(); 
+
+            if (affectedRows > 0) { 
+                
+                return true; // 
+            } else {
+
+                return false;
+            }
+        } catch (SQLException ex) {
+            
+            ex.printStackTrace(); // Mínimo para ver el error en consola durante desarrollo
+            return false; 
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Loguear error al cerrar
+                }
+            }
+            
+        }
+    }
     
     
     
     
+    
+
 }
