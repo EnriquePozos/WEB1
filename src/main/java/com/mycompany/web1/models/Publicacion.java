@@ -17,8 +17,20 @@ public class Publicacion {
  int id_Categoria; 
  int id_Autor;
  String Foto_Perfil;
- String Foto_Receta;   
+ String Foto_Receta;
+ String nombreCategoria;
+
+ 
+ 
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
+    }
     
+ 
     public Publicacion(){
          
     }

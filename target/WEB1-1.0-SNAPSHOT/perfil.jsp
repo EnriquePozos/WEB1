@@ -58,12 +58,12 @@
                     <div class="collapse navbar-collapse" id="navbar-toggler">
                         <!-- Barra de bÃºsqueda en el centro (visible en pc) -->
                         <div class="search-container d-none d-lg-block">
-                            <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Buscar recetas..." aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </form>
+                        <form class="d-flex" method = "post" action = "BusquedaSencilla">
+                            <input id="buscar" name = "buscar" class="form-control me-2" type="search" placeholder="Buscar recetas..." aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </form>
                         </div>
 
                         <!-- Opciones de navegaciÃ³n a la derecha -->
@@ -72,13 +72,19 @@
                                 <a class="nav-link" href="index.jsp">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="dashboard.jsp">Recetas</a>
+                                <a class="nav-link" href="VerRecetas">Recetas</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="ObtenerRecetasDeUnUsuario">Mi perfil</a>
                             </li>
                             <li class="nav-item">
+                                <%-- Lógica para mostrar "Cerrar Sesión" si hay sesión, o "Iniciar Sesión" si no --%>
+                                <% Object usuarioSesion = session.getAttribute("SesionActual"); %>
+                                <% if (usuarioSesion != null) { %>
+                                <a class="nav-link" href="CerrarSesionServlet">Cerrar Sesión</a>
+                                <% } else { %>
                                 <a class="nav-link" href="login.jsp">Iniciar sesión</a>
+                                <% }%>
                             </li>
                         </ul>
 
@@ -163,7 +169,7 @@
                                                         <% }%>
                                                     </small>
                                                     <div class="btn-group">
-                                                        <a href="<%= contextPath%>/VerPublicacionServlet?id=<%= pub.getId_Publicacion()%>" class="btn btn-sm btn-outline-primary" title="Ver receta"><i class="bi bi-eye"></i></a>
+                                                        <a href="<%= contextPath%>/VerPublicacion?id=<%= pub.getId_Publicacion()%>" class="btn btn-sm btn-outline-primary" title="Ver receta"><i class="bi bi-eye"></i></a>
                                                         <a href="<%= contextPath%>/ObtenerDatosDePublicacion?id=<%= pub.getId_Publicacion()%>" class="btn btn-sm btn-outline-secondary" title="Editar receta"><i class="bi bi-pencil icons-edittrash"></i></a>
                                                         <form action="<%= contextPath%>/EliminarPublicacion" method="POST" style="display: inline;" onsubmit="return confirm('¿Estás seguro de que quieres borrar esta publicación?');">
                                                             <input type="hidden" name="idPublicacion" value="<%= pub.getId_Publicacion()%>">

@@ -250,7 +250,7 @@
   <<script>
       const params = new URLSearchParams(window.location.search);
       if(params.has("error")){
-       alert("Error al iniciar sesión: Usuario ya existente");
+       alert("Error verifique su sesión");
       }
   </script>
 </body>

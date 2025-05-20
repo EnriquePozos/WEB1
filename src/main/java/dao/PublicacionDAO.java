@@ -114,6 +114,9 @@ public class PublicacionDAO {
                 publicacion.setId_Publicacion(rs.getInt("id_Publicacion"));
                 publicacion.setTitulo(rs.getString("Titulo"));
                 publicacion.setDescripcion(rs.getString("Descripcion"));
+                publicacion.setFoto_Receta(rs.getString("Foto_Receta"));
+                publicacion.setId_Autor(rs.getInt("id_Autor"));
+                publicacion.setId_Categoria(rs.getInt("id_Categoria"));
             }
         } catch (SQLException ex) {
 
@@ -191,9 +194,104 @@ public class PublicacionDAO {
         }
     }
     
+        public Publicacion getPublicacionAMostrar(int idPublicacion) {
+        PreparedStatement ps = null;
+        Publicacion publicacion = null;
+        try {
+            ps = conn.prepareStatement("SELECT * FROM PUBLICACION where id_Publicacion=(?)");
+            ps.setInt(1, idPublicacion);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                publicacion = new Publicacion();
+                //Crea un obj con la info que me trajo el query
+                publicacion.setId_Publicacion(rs.getInt("id_Publicacion"));
+                publicacion.setTitulo(rs.getString("Titulo"));
+                publicacion.setDescripcion(rs.getString("Descripcion"));
+                publicacion.setFoto_Receta(rs.getString("Foto_Receta"));
+                publicacion.setId_Autor(rs.getInt("id_Autor"));
+                publicacion.setId_Categoria(rs.getInt("id_Categoria"));
+            }
+        } catch (SQLException ex) {
+
+        }
+        return publicacion;
+    }
     
-    
-    
+        
+        
+        //Obtener todas las publicaciones de la base de datos
+        public List<Publicacion> getPublicaciones() {
+        List<Publicacion> listaPublicaciones = new ArrayList<>();
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement("SELECT * FROM PUBLICACION WHERE Activa = TRUE ORDER BY Fecha_Creacion DESC");
+
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Publicacion publicacion = new Publicacion();
+
+                publicacion.setId_Publicacion(rs.getInt("id_Publicacion"));
+                publicacion.setTitulo(rs.getString("Titulo"));
+                publicacion.setDescripcion(rs.getString("Descripcion"));
+                publicacion.setFecha_Creacion(rs.getTimestamp("Fecha_Creacion"));
+                publicacion.setId_Autor(rs.getInt("id_Autor"));
+                publicacion.setFoto_Receta(rs.getString("Foto_Receta"));
+                publicacion.setId_Categoria(rs.getInt("id_Categoria"));
+
+                listaPublicaciones.add(publicacion);
+            }
+        } catch (SQLException ex) {
+
+        }
+
+        return listaPublicaciones;
+
+    }
+
+        
+        
+        
+        
+        
+        
+    public List<Publicacion> busquedaDePublicaciones(String palabraClave) {
+        List<Publicacion> listaPublicaciones = new ArrayList<>();
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement("SELECT * FROM Publicacion WHERE (LOWER(Titulo) LIKE LOWER(CONCAT('%', ?, '%')) OR LOWER(Descripcion) LIKE LOWER(CONCAT('%', ?, '%')))AND Activa = 1;");
+               
+            ps.setString(1, palabraClave);
+            ps.setString(2, palabraClave);
+            
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Publicacion publicacion = new Publicacion();
+
+                publicacion.setId_Publicacion(rs.getInt("id_Publicacion"));
+                publicacion.setTitulo(rs.getString("Titulo"));
+                publicacion.setDescripcion(rs.getString("Descripcion"));
+                publicacion.setFecha_Creacion(rs.getTimestamp("Fecha_Creacion"));
+                publicacion.setId_Autor(rs.getInt("id_Autor"));
+                publicacion.setFoto_Receta(rs.getString("Foto_Receta"));
+
+                listaPublicaciones.add(publicacion);
+            }
+        } catch (SQLException ex) {
+
+        }
+
+        return listaPublicaciones;
+
+    }
     
 
 }

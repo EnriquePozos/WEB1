@@ -2,8 +2,11 @@ com\mycompany\web1\servlets\AgregarReceta.class
 com\mycompany\web1\servlets\Login.class
 com\mycompany\web1\models\Usuario.class
 com\mycompany\web1\servlets\Registro.class
+com\mycompany\web1\servlets\CerrarSesionServlet.class
 com\mycompany\web1\servlets\ModificarUsuario.class
 com\mycompany\web1\resources\JakartaEE11Resource.class
+com\mycompany\web1\servlets\VerRecetas.class
+com\mycompany\web1\servlets\BusquedaSencilla.class
 conexion\conexion.class
 dao\CategoriaDAO.class
 com\mycompany\web1\servlets\EliminarPublicacion.class
@@ -14,3 +17,4 @@ dao\PublicacionDAO.class
 com\mycompany\web1\servlets\ModificarReceta.class
 dao\UsuarioDAO.class
 com\mycompany\web1\models\Publicacion.class
+com\mycompany\web1\servlets\VerPublicacion.class

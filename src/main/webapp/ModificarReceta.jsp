@@ -54,30 +54,7 @@
         
         <div class="collapse navbar-collapse" id="navbar-toggler">
           <!-- Barra de búsqueda en el centro (visible en desktop) -->
-          <div class="search-container d-none d-lg-block">
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Buscar recetas..." aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">
-                <i class="bi bi-search"></i>
-              </button>
-            </form>
-          </div>
           
-          <!-- Opciones de navegación a la derecha -->
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.jsp">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="dashboard.jsp">Recetas</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="perfil.jsp">Mi perfil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.jsp">Iniciar sesión</a>
-            </li>
-          </ul>
           
           <!-- Barra de búsqueda para móviles -->
           <div class="mt-3 d-lg-none">
